@@ -1,3 +1,35 @@
+# Fuzzware Icicle Mode
+
+Patches to Fuzzware to allow running using Icicle as the Emulation backend.
+
+Currently only local builds are supported (i.e., no docker), install using:
+
+```
+./install_local.sh
+```
+
+Then run:
+
+```
+workon fuzzware-icicle
+```
+
+And follow the original Fuzzware README.
+
+When running we also support CompareCov instrumentation by setting `AFL_COMPCOV_LEVEL`. e.g.:
+
+
+```
+AFL_COMPCOV_LEVEL=2 fuzzware pipeline <path/to/project>
+```
+
+Note: The `GHIDRA_SRC` environment variable MUST be set to the folder where https://github.com/icicle-emu/ghidra is checked out.
+
+
+Original README from Fuzzware below:
+
+----
+
 # Fuzzware
 <p><a href="https://www.usenix.org/system/files/sec22summer_scharnowski.pdf"><img alt="Fuzzware thumbnail" align="right" width="200" src="https://user-images.githubusercontent.com/18148299/150141920-3f054255-2b73-41d2-aa11-27a1e42f5302.png"></a></p>
 
@@ -5,7 +37,7 @@ Fuzzware is a project for automated, self-configuring fuzzing of firmware images
 
 The idea of this project is to configure the memory ranges of an ARM Cortex-M3 / M4 firmware image, and start emulating / fuzzing the target without full device emulation. Fuzzware will figure out how MMIO values are used, configure models, and involve the fuzzer to provide hardware behavior which is not fully covered by MMIO models.
 
-Our [paper](https://www.usenix.org/system/files/sec22summer_scharnowski.pdf) from USENIX Security '22 explains the system in more detail. For a demo, check out our [screen cast](https://asciinema.org/a/490160). 
+Our [paper](https://www.usenix.org/system/files/sec22summer_scharnowski.pdf) from USENIX Security '22 explains the system in more detail. For a demo, check out our [screen cast](https://asciinema.org/a/490160).
 
 The [fuzzware-experiments repository](https://github.com/fuzzware-fuzzer/fuzzware-experiments) contains the data sets, scripts, and documentation required to replicate our experiments.
 
@@ -107,7 +139,7 @@ include:
     - ./../configs/fuzzing/round_robin_interrupts.yml
 
 memory_map:
-    rom: 
+    rom:
         base_addr: 0x08000000
         size: 0x800000
         permissions: r-x
